@@ -1,9 +1,4 @@
-var money; // let, const
-var income;
-var addExpenses;
-var deposit;
-var mission;
-var period;
+let money, income, addExpenses, deposit, mission, period;
 
-alert('Любой текст');
-console.log('Любой текст');
+alert('Hello world!');
+console.log('Hello world!');
