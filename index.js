@@ -5,5 +5,5 @@ var deposit;
 var mission;
 var period;
 
-alert('Любой текст');
+alert('Любой текст (снова изменил)');
 console.log('Любой текст');
