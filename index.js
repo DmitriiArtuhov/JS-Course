@@ -6,4 +6,4 @@ var mission;
 var period;
 
 alert('Любой текст');
-console.log('Любой текст2');
+console.log('Любой текст');
