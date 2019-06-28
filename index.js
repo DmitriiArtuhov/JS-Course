@@ -28,14 +28,16 @@ console.log(money % 30);
 let num = 266219;
 let mult = 1;
 
-while (num > 0) {
-	mult *= num % 10;  // Находит произведение цифр числа num
-	num = Math.floor(num / 10);  // Удаляет из числа num посчитанные цифры
-}
+mult = num.toString().split('').reduce(function(mult, current){
+	return mult * current;  // Пользуясь слабой типизацией JS, находим произведение цифр числа num
+});
+
+// Разве map() не было бы удобней использовать ?
 
 console.log(mult);
 
 // #2
 
 mult **= 3; // возводит число в 3 степень
-console.log(mult % 100); // выводит первые 2 цифры полученного числа
+console.log(Number(mult.toString().slice(0, 2)));
+
