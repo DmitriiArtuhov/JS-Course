@@ -3,6 +3,7 @@ let argument = prompt("Введите строку: ");
 function processingString(str) {
 	if(Number(str).toString() !== "NaN") {
 		console.log(str, " - не строка!");
+		return;
 	}
 
 	modifiedStr = str.trim();
