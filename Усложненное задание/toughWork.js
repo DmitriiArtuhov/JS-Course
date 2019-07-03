@@ -1,5 +1,5 @@
 // #1
-// let arr = [];
+let arr = [];
 
 for(let i = 0; i < 7; i++) {
 	arr[i] = prompt('Введите многозначное число');
