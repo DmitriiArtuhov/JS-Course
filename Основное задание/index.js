@@ -45,6 +45,8 @@ let getExpensesMonth = function() {
 let allExpenses = getExpensesMonth();
 
 
+
+
 //функция getAccumulatedMonth. Функция возвращает
 //Накопления за месяц (Доходы минус расходы) 
 //Результат сохранить в переменную accumulatedMonth
@@ -52,10 +54,25 @@ function getAccumulatedMonth(salary, expenses) {
 	return salary - expenses;
 }
 let accumulatedMonth = getAccumulatedMonth(money, allExpenses);
-console.log("Накопления за месяц: ", accumulatedMonth);
+// console.log("Накопления за месяц: ", accumulatedMonth);
+
+
+//Cрок достижения цели в месяцах (значение округлить в меньшую сторону)
+function getTargetMonth(goal, accumulatedMoneyMonth) {
+	return Math.floor(goal / accumulatedMoneyMonth);
+}
+// console.log("Количество месяцев до цели: ", getTargetMonth(mission, accumulatedMonth));
+
+if(getTargetMonth(mission, accumulatedMonth) < 0) {
+	console.log("Цель не будет достигнута");
+} else {
+	console.log("Цель будет достигнута через ", getTargetMonth(mission, accumulatedMonth));
+}
+
+
 
 let budgetDay = Math.floor(accumulatedMonth / 30);
-console.log(budgetDay);
+console.log("Ежедневный бюджет: ", budgetDay);
 
 //Накопления за период
 console.log("Накопления за период: ", accumulatedMonth * period);
@@ -66,7 +83,7 @@ console.log("Накопления за период: ", accumulatedMonth * perio
 function getTargetMonth(goal, accumulatedMoneyMonth) {
 	return Math.floor(goal / accumulatedMoneyMonth);
 }
-console.log("Количество месяцев до цели: ", getTargetMonth(mission, accumulatedMonth));
+// console.log("Количество месяцев до цели: ", getTargetMonth(mission, accumulatedMonth));
 
 
 
