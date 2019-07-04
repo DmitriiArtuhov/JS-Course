@@ -1,26 +1,16 @@
 // #1
-let arr = [];
 
-for(let i = 0; i < 7; i++) {
-	arr[i] = prompt('Введите многозначное число');
-}
+let weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-for(let i = 0; i < arr.length; i++) {
-	if(Number(arr[i][0]) === 2 || Number(arr[i][0]) === 4) {
-		console.log(Number(arr[i]));
+for(let i = 0; i < weekDays.length; i++) {
+	if(i === 0 || i === 6) {
+		document.write(weekDays[i].italics() + '\n');
+	} else {
+		document.write(weekDays[i] + '\n');
 	}
 }
 
-// #2
+currentDay = new Date();
+document.write('\n' + weekDays[currentDay.getDay()].bold());
 
-for(let i = 1; i <= 100; i++) {
-	let count = 0;
-	for(let j = Math.ceil(i / 2); j > 0; j--) {
-		if(!(i % j)) {
-			count++;
-		}
-	}
-	if(count === 1) {
-		console.log(i, ' Делители этого числа: ', count, ' и ', i);
-	}
-}
+// По какой-то причине не работает перенос строки в Chrome ('\n')
