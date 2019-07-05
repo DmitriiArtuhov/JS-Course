@@ -1,16 +1,27 @@
 // #1
 
-let weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-for(let i = 0; i < weekDays.length; i++) {
-	if(i === 0 || i === 6) {
-		document.write(weekDays[i].italics() + '\n');
-	} else {
-		document.write(weekDays[i] + '\n');
-	}
+let currentDay = new Date();
+currentDay = currentDay.getDay();
+
+if(currentDay === 0) {
+	currentDay = this.length - 1;
+} else {
+	currentDay--;
 }
 
-currentDay = new Date();
-document.write('\n' + weekDays[currentDay.getDay()].bold());
+weekDays.forEach((item, i) => {
+	let div = document.createElement('div');
+	div.innerText = item;
 
-// По какой-то причине не работает перенос строки в Chrome ('\n')
+	if(item === 'Saturday' || item === 'Sunday') {
+		div.classList.add('italic');
+	}
+
+	document.body.append(div);
+
+	if(i === currentDay) {
+		div.classList.add('bold');
+	}
+});
