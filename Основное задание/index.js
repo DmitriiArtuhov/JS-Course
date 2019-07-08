@@ -94,8 +94,8 @@ let appData = {
 
 		let	addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую");
 
-		while(addExpenses === null || addExpenses === '') {
-			addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую (Это обязательное поле)");
+		while(addExpenses === null || addExpenses === '' || Number(addExpenses).toString() !== 'NaN') {
+			addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую (Это обязательное поле, вид - строка)");
 		}
 		appData.addExpenses = addExpenses.toLowerCase().split(',');
 
@@ -105,7 +105,7 @@ let appData = {
 			if(i === 0) {
 				question1 = prompt("Какие обязательные ежемесячные расходы у вас есть?", "food");
 
-				while(question1 === null || question1 === '') {
+				while(question1 === null || question1 === '' || Number(question1).toString() !== 'NaN') {
 					question1 = prompt("Пожалуйста, введите свои ежемесячные расходы", "food");
 				}
 
@@ -120,7 +120,7 @@ let appData = {
 			} else if(i === 1) {
 				question2 = prompt("Какие ещё обязательные ежемесячные расходы у вас есть?", "goods");
 
-				while(question2 === null || question2 === '') {
+				while(question2 === null || question2 === '' || Number(question2).toString() !== 'NaN') {
 					question2 = prompt("Пожалуйста, введите свои ежемесячные расходы", "goods");
 				}
 
