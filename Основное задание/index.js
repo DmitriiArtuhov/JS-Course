@@ -42,5 +42,3 @@ li.textContent = 'Глава 8: За пределами ES6';
 
 sortedBooks[5].insertBefore(li, sixthBookContent[9]);
 
-
-// #2

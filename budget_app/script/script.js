@@ -1,3 +1,4 @@
+// #2
 const countBtn = document.getElementById('start');
 
 const plusBtns = document.getElementsByTagName('button');
@@ -10,16 +11,17 @@ const checkBox = document.querySelector('#deposit-check');
 
 const inputs = document.querySelectorAll('.additional_income-item');
 
-const dayValue = document.querySelectorAll('.budget_day-value');
-const monthValue = document.querySelectorAll('.budget_month-value');
-const expensesValue = document.querySelectorAll('.expenses_month-value');
-const accumulatedValue = document.querySelectorAll('.accumulated_month-value');
-const additionalIncome = document.querySelectorAll('.additional_income-value');
-const additionalExpenses = document.querySelectorAll('.additional_expenses-value');
-const incomePeriod = document.querySelectorAll('.income_period-value');
-const targetMonth = document.querySelectorAll('.target_month-value');
-
-console.log(dayValue, monthValue, expensesValue, accumulatedValue, additionalIncome, additionalExpenses, incomePeriod, targetMonth);
+// const dayValue = document.querySelectorAll('.budget_day-value');
+// const monthValue = document.querySelectorAll('.budget_month-value');
+// const expensesValue = document.querySelectorAll('.expenses_month-value');
+// const accumulatedValue = document.querySelectorAll('.accumulated_month-value');
+// const additionalIncome = document.querySelectorAll('.additional_income-value');
+// const additionalExpenses = document.querySelectorAll('.additional_expenses-value');
+// const incomePeriod = document.querySelectorAll('.income_period-value');
+// const targetMonth = document.querySelectorAll('.target_month-value');
+const values = document.querySelectorAll('.result input');
+console.log(values);
+// console.log(dayValue, monthValue, expensesValue, accumulatedValue, additionalIncome, additionalExpenses, incomePeriod, targetMonth);
 
 
 
