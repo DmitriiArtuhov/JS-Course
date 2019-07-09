@@ -11,22 +11,18 @@ function showData() {
 			date = dataAndTime.getDate().toString(),
 			month = dataAndTime.getMonth().toString(),
 			year = dataAndTime.getFullYear();
-	if (h.length < 2) {
-		h = "0" + h;
-	}
-	if (m.length < 2) {
-		m = "0" + m;
-	}
-	if (s.length < 2) {
-		s = "0" + s;
-	}
-	if (date.length < 2) {
-		date = "0" + date;
-	}
-	if (month.length < 2) {
-		month = "0" + month;
-	}
+	checkLength(h);
+	checkLength(m);
+	checkLength(s);
+	checkLength(date);
+	checkLength(month);
 	textDate.textContent = `${h}:${m}:${s} - ${date}.${month}.${year}`;
+}
+
+function checkLength(n) {
+	if(n.length < 2) {
+		n = '0' + n;
+	}
 }
 
 setInterval(showData, 1000);
