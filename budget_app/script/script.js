@@ -1,37 +1,30 @@
 // #2
-const countBtn = document.getElementById('start');
+const startBtn = document.getElementById('start'); // кнопка рассчитать
 
-const plusBtns = document.getElementsByTagName('button');
+const plusBtns = document.getElementsByTagName('button'); // кнопка добавления полей ввода
+const plusBtnOne = plusBtns[0]; // первая кнопка добавления
+const plusBtnTwo = plusBtns[1]; // вторая кнопка добавления
 
-const plusBtnOne = plusBtns[0];
-const plusBtnTwo = plusBtns[1];
+const checkBox = document.querySelector('#deposit-check'); // чекбокс для депозита
 
+// Поля ввода
+// const budgetDayValue = document.querySelectorAll('.budget_day-value');
+// const budgetMonthValue = document.querySelectorAll('.budget_month-value');
+// const expensesMonthValue = document.querySelectorAll('.expenses_month-value');
+// const accumulatedMonthValue = document.querySelectorAll('.accumulated_month-value');
+// const additionalIncomeValue = document.querySelectorAll('.additional_income-value');
+// const additionalExpensesValue = document.querySelectorAll('.additional_expenses-value');
+// const incomePeriodValue = document.querySelectorAll('.income_period-value');
+// const targetMonthValue = document.querySelectorAll('.target_month-value');
+let inputsValues = document.querySelectorAll('.result input[class$="value"]');
 
-const checkBox = document.querySelector('#deposit-check');
-
-const inputs = document.querySelectorAll('.additional_income-item');
-
-// const dayValue = document.querySelectorAll('.budget_day-value');
-// const monthValue = document.querySelectorAll('.budget_month-value');
-// const expensesValue = document.querySelectorAll('.expenses_month-value');
-// const accumulatedValue = document.querySelectorAll('.accumulated_month-value');
-// const additionalIncome = document.querySelectorAll('.additional_income-value');
-// const additionalExpenses = document.querySelectorAll('.additional_expenses-value');
-// const incomePeriod = document.querySelectorAll('.income_period-value');
-// const targetMonth = document.querySelectorAll('.target_month-value');
-const values = document.querySelectorAll('.result input');
-console.log(values);
-// console.log(dayValue, monthValue, expensesValue, accumulatedValue, additionalIncome, additionalExpenses, incomePeriod, targetMonth);
-
-
-
-
-const salaryInput = document.querySelector('.salary-amount');
+// Поля вывода
+const salaryAmount = document.querySelector('.salary-amount');
 const incomeTitle = document.querySelector('.income-title');
-const incomeInput = document.querySelector('.income-amount');
-const additionalIncomeInput = document.querySelectorAll('.additional_income-item');
+const incomeAmount = document.querySelector('.income-amount');
+const additionalIncome = document.querySelectorAll('.additional_income-item');
 const expensesTitle = document.querySelector('.expenses-title');
-const expensesInput = document.querySelector('.expenses-amount');
-const additionalExpensesInput = document.querySelector('.additional_expenses-item');
-const targetInput = document.querySelector('.target-amount');
-const rangeInput = document.querySelector('.period-select');
+const expensesAmount = document.querySelector('.expenses-amount');
+const additionalExpenses = document.querySelector('.additional_expenses-item');
+const targetAmount = document.querySelector('.target-amount');
+const periodSelect = document.querySelector('.period-select');
