@@ -58,17 +58,45 @@ let appData = {
 			return;
 		}
 
+
+		let f = 1;
+		document.querySelectorAll('input[placeholder="Наименование"]').forEach((string) => {
+			string.value.split('').forEach((item) => {
+				if((item >= 'А' && item <= 'ё') || (item >= ';' && item <= "'") || item === ' ' || item === '') {
+					console.log(`OK --> ${string.value}`);
+				} else {
+					f = 0;
+					return;
+				}
+			});
+		});
+
+		document.querySelectorAll('input[placeholder="Сумма"]').forEach((string) => {
+			string.value.split('').forEach((item) => {
+				if((item >= '0' && item <= '9') || item === ',' || item === '.' || item === '') {
+					console.log(`OK --> ${string.value}`);
+				} else {
+					f = 0;
+					return;
+				}
+			});
+		});
+
+		if(!f) return;
+
+
+
 		appData.budget = +salaryAmount.value;
 
-		appData.getExpenses();
+		appData.getExpenses()
 		appData.getIncome();
 		appData.getExpensesMonth();
 		appData.getAddExpenses();
 		appData.getAddIncome();
 		appData.getBudget();
-		
+	
 		appData.showResult();
-
+		
 		// Переводим все поля ввода в режим "отключено" (disabled)
 		let allClientInputs = document.querySelectorAll('.data input[type=text]');
 		allClientInputs.forEach((item) => {
@@ -77,7 +105,7 @@ let appData = {
 
 		// Отображение кнопки "сбросить"
 		start.style.display = 'none';
-		cancel.style.display = 'block';
+		cancel.style.display = 'block';	
 	},
 	showResult: function() {
 		budgetMonthValue.value = appData.budgetMonth;
@@ -174,7 +202,7 @@ let appData = {
 			let cashExpenses = item.querySelector('.expenses-amount').value;
 
 			if(itemExpenses !== '' && cashExpenses !== '') {
-				appData.expenses[itemExpenses] = cashExpenses;
+					appData.expenses[itemExpenses] = cashExpenses;
 			}
 		});
 	},
