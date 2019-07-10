@@ -58,34 +58,6 @@ let appData = {
 			return;
 		}
 
-
-		let f = 1;
-		document.querySelectorAll('input[placeholder="Наименование"]').forEach((string) => {
-			string.value.split('').forEach((item) => {
-				if((item >= 'А' && item <= 'ё') || (item >= ';' && item <= "'") || item === ' ' || item === '') {
-					console.log(`OK --> ${string.value}`);
-				} else {
-					f = 0;
-					return;
-				}
-			});
-		});
-
-		document.querySelectorAll('input[placeholder="Сумма"]').forEach((string) => {
-			string.value.split('').forEach((item) => {
-				if((item >= '0' && item <= '9') || item === ',' || item === '.' || item === '') {
-					console.log(`OK --> ${string.value}`);
-				} else {
-					f = 0;
-					return;
-				}
-			});
-		});
-
-		if(!f) return;
-
-
-
 		appData.budget = +salaryAmount.value;
 
 		appData.getExpenses()
@@ -269,6 +241,55 @@ incomePlus.addEventListener('click', appData.addIncomeBlock);
 
 // Отображение значения ползунка периода
 periodSelect.addEventListener('input', appData.getRangeValue);
+
+// Валидация контента, который вводит пользователь в поля ввода
+document.querySelectorAll('input[placeholder="Наименование"]').forEach(input => {
+	input.addEventListener('input', () => {
+		let matchValue = /\w/;
+		let matchIndex = input.value.search(matchValue);
+		if(matchIndex !== -1) {
+			input.value = input.value.substr(0, matchIndex);
+		}
+	});
+});
+
+document.querySelectorAll('input[placeholder="Сумма"]').forEach(input => {
+	input.addEventListener('input', () => {
+		let matchValue = /\D/;
+		let matchIndex = input.value.search(matchValue);
+		if(matchIndex !== -1) {
+			input.value = input.value.substr(0, matchIndex);
+		}
+	});
+});
+
+// let f = 1;
+// document.querySelectorAll('input[placeholder="Наименование"]').forEach((string) => {
+// 	string.value.split('').forEach((item) => {
+// 		if((item >= 'А' && item <= 'ё') || (item >= ';' && item <= "'") || item === ' ' || item === '') {
+// 			console.log(`OK --> ${string.value}`);
+// 		} else {
+// 			f = 0;
+// 			return;
+// 		}
+// 	});
+// });
+
+// document.querySelectorAll('input[placeholder="Сумма"]').forEach((string) => {
+// 	string.value.split('').forEach((item) => {
+// 		if((item >= '0' && item <= '9') || item === ',' || item === '.' || item === '') {
+// 			console.log(`OK --> ${string.value}`);
+// 		} else {
+// 			f = 0;
+// 			return;
+// 		}
+// 	});
+// });
+
+// if(!f) return;
+
+
+
 
 
 
