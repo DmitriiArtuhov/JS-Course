@@ -57,7 +57,6 @@ let appData = {
 		if(salaryAmount.value === '') {
 			return;
 		}
-		
 
 		let f = 1;
 		document.querySelectorAll('input[placeholder="Наименование"]').forEach((string) => {
@@ -85,16 +84,16 @@ let appData = {
 		if(!f) return;
 
 
-		appData.budget = +salaryAmount.value;
+		this.budget = +salaryAmount.value;
 
-		appData.getExpenses();
-		appData.getIncome();
-		appData.getExpensesMonth();
-		appData.getAddExpenses();
-		appData.getAddIncome();
-		appData.getBudget();
+		this.getExpenses();
+		this.getIncome();
+		this.getExpensesMonth();
+		this.getAddExpenses();
+		this.getAddIncome();
+		this.getBudget();
 	
-		appData.showResult();
+		this.showResult();
 		
 		// Переводим все поля ввода в режим "отключено" (disabled)
 		let allClientInputs = document.querySelectorAll('.data input[type=text]');
@@ -283,17 +282,29 @@ let appData = {
 		appData.unsetDisableMode(inputs);
 		periodSelect.value = '1';
 		periodAmount.textContent = '1';
+		
+		appData.income = {};
+		appData.incomeMonth = 0;
+		appData.addIncome = [];
+		appData.expenses = {};
+		appData.addExpenses = [];
+		appData.deposit = false;
+		appData.percentDeposit = 0;
+		appData.moneyDeposit = 0;
+		appData.period = 12;
+		appData.budget = 0;
+		appData.budgetDay = 0;
+		appData.budgetMonth = 0;
+		appData.expensesMonth = 0;
+
 		start.style.display = 'block';
 		cancel.style.display = 'none';
 	}
 };
-// Не знаю, где именно нужно менять контекст для функции start() ( appData.start.call(appData) )
-
-
 
 
 // Запуск программы по клику на кнопку "Рассчитать"
-start.addEventListener('click', appData.start);
+start.addEventListener('click', appData.start.bind(appData));
 
 // Обработчик на клик по кнопке добавления колонки расходов
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
