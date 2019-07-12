@@ -151,6 +151,10 @@ let appData = {
 		cloneExpensesItem.querySelectorAll('input').forEach((item) => item.value = ''); // Очищаем значения заполненных полей ввода, чтобы они не копировались
 		expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
 
+		cloneExpensesItem.children[0].addEventListener('input', checkContentText); // <-- TEST
+		cloneExpensesItem.children[1].addEventListener('input', checkContentNumbers); // <-- TEST
+
+
 		expensesItems = document.querySelectorAll('.expenses-items');
 		
 		if(expensesItems.length === 3) {
@@ -161,6 +165,10 @@ let appData = {
 		let cloneIncomeItem = incomeItems[0].cloneNode(true);
 		cloneIncomeItem.querySelectorAll('input').forEach((item) => item.value = ''); // Очищаем значения заполненных полей ввода, чтобы они не копировались
 		incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
+
+		cloneIncomeItem.children[0].addEventListener('input', checkContentText); // <-- TEST
+		cloneIncomeItem.children[1].addEventListener('input', checkContentNumbers); // <-- TEST
+
 
 		incomeItems = document.querySelectorAll('.income-items');
 
@@ -244,55 +252,28 @@ periodSelect.addEventListener('input', appData.getRangeValue);
 
 // Валидация контента, который вводит пользователь в поля ввода
 document.querySelectorAll('input[placeholder="Наименование"]').forEach(input => {
-	input.addEventListener('input', () => {
-		let matchValue = /\w/;
-		let matchIndex = input.value.search(matchValue);
-		if(matchIndex !== -1) {
-			input.value = input.value.substr(0, matchIndex);
-		}
-	});
+	input.addEventListener('input', checkContentText);
 });
+
+function checkContentText() {
+	let matchValue = /\w/;
+	let matchIndex = this.value.search(matchValue);
+	if(matchIndex !== -1) {
+		this.value = this.value.substr(0, matchIndex);
+	}
+} 
 
 document.querySelectorAll('input[placeholder="Сумма"]').forEach(input => {
-	input.addEventListener('input', () => {
-		let matchValue = /\D/;
-		let matchIndex = input.value.search(matchValue);
-		if(matchIndex !== -1) {
-			input.value = input.value.substr(0, matchIndex);
-		}
-	});
+	input.addEventListener('input', checkContentNumbers);
 });
 
-// let f = 1;
-// document.querySelectorAll('input[placeholder="Наименование"]').forEach((string) => {
-// 	string.value.split('').forEach((item) => {
-// 		if((item >= 'А' && item <= 'ё') || (item >= ';' && item <= "'") || item === ' ' || item === '') {
-// 			console.log(`OK --> ${string.value}`);
-// 		} else {
-// 			f = 0;
-// 			return;
-// 		}
-// 	});
-// });
-
-// document.querySelectorAll('input[placeholder="Сумма"]').forEach((string) => {
-// 	string.value.split('').forEach((item) => {
-// 		if((item >= '0' && item <= '9') || item === ',' || item === '.' || item === '') {
-// 			console.log(`OK --> ${string.value}`);
-// 		} else {
-// 			f = 0;
-// 			return;
-// 		}
-// 	});
-// });
-
-// if(!f) return;
-
-
-
-
-
-
+function checkContentNumbers() {
+	let matchValue = /\D/;
+	let matchIndex = this.value.search(matchValue);
+	if(matchIndex !== -1) {
+		this.value = this.value.substr(0, matchIndex);
+	}
+} 
 
 
 // console.log('Наша программа включает в себя данные: ');
