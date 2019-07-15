@@ -404,6 +404,8 @@ const saveCookies = () => {
 
 const loadCookies = () => {
 	// Loading data from localStorage
+	application.disableFields();
+
 	let myStorage = {};
 	for(let key in localStorage) {
 		if(key === 'length') break;
@@ -427,10 +429,6 @@ const loadCookies = () => {
 	for(let key in keyValuePairs) {
 		let cookie = keyValuePairs[key].split('=');
 		myCookies[cookie[0].trim()] = cookie[1];
-	}
-
-	if(myCookies['isLoaded'] === 'true') {
-		application.disableFields();
 	}
 }
 const deleteAllCookies = () => {
