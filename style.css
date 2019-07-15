@@ -1,0 +1,140 @@
+body{
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+	width: 100%;
+	position: relative;
+	overflow-x: hidden;
+	background: linear-gradient(to right, #2196f3, #e34349);
+	color: #fff;
+}
+
+.game{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+}
+
+.game h1{
+	font-size: 35px;
+	text-transform: uppercase;
+}
+
+.wrapper{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.interface{
+	display: inline-block;
+	padding: 30px 30px;
+	position: relative;
+	min-width: 320px;
+}
+
+.score{
+	font-size: 22px;
+	margin-bottom: 100px;
+}
+
+.stars{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	font-size: 30px;
+}
+
+.text-wrapper{
+	text-align: center;
+}
+
+.choice-message{
+	text-align: center;
+	text-transform: uppercase;
+	margin-top: 35px;
+	padding: 10px 0;
+}
+
+.choice-section{
+	font-size: 100px;
+	margin-top: 50px;
+}
+
+.choice-section i{
+	cursor: pointer;
+	transition: .2s;
+}
+
+.choice-section i:hover{
+	opacity: .5;
+}
+
+.reset-btn button{
+	outline: none;
+	border: 2px solid #fff;
+	border-radius: 5px;
+	width: 200px;
+	color: #fff;
+	background-color: transparent;
+	height: 50px;
+	line-height: 50px;
+	text-transform: uppercase;
+	cursor: pointer;
+	margin-top: 50px;
+	letter-spacing: 2px;
+	font-weight: 500;
+	font-size: 20px;
+	padding: 0;
+	animation: button-transform 1.5s ease-out infinite;
+}
+
+.start-btn button{
+	outline: none;
+	border: 2px solid #fff;
+	border-radius: 5px;
+	width: 200px;
+	color: #fff;
+	background-color: transparent;
+	height: 50px;
+	line-height: 50px;
+	text-transform: uppercase;
+	cursor: pointer;
+	margin-top: 50px;
+	letter-spacing: 2px;
+	font-weight: 500;
+	font-size: 20px;
+	padding: 0;
+	transform-origin: center;
+	animation: button-transform 1.5s ease-out infinite;
+}
+
+
+@keyframes button-transform{
+	0%{
+		width: 200px;
+	}
+	50%{
+		width: 230px;
+	}
+	100%{
+		width: 200px;
+	}
+}
+
+.message{
+	text-transform: uppercase;
+	font-size: 30px;
+}
+
+.color-star{
+	color: #f2b01e;
+}

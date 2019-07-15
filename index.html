@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<!-- Google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="style.css">
+
+	<title>Paper | Scissors | Rock</title>
+</head>
+<body>
+	
+	<section class="game">
+		<h1>Paper - Scissors - Rock</h1>
+
+		<div class="wrapper">
+			<div class="interface">
+				<div class="text-wrapper">
+					<div class="score"><h3>Your score: <span class="user-score">0</span></h3></div>
+					<div class="stars">
+						<i class="far fa-star user-star"></i>
+						<i class="far fa-star user-star"></i>
+						<i class="far fa-star user-star"></i>
+					</div>
+				</div>
+				<div class="choice-section">
+					<i class="fas fa-hand-rock rock choice-item" data-value="rock"></i>
+					<i class="fas fa-hand-paper paper choice-item" data-value="paper"></i>
+					<i class="fas fa-hand-scissors scissors choice-item" data-value="scissors"></i>
+				</div>
+
+				<div class="choice-message user-message">Your choice</div>
+			</div>
+
+			<div class="interface">
+				<div class="text-wrapper">
+					<div class="score"><h3>Computer's score: <span class="computer-score">0</span></h3></div>
+					<div class="stars">
+						<i class="far fa-star computer-star"></i>
+						<i class="far fa-star computer-star"></i>
+						<i class="far fa-star computer-star"></i>
+					</div>
+				</div>
+				<div class="choice-section">
+					<i class="fas fa-hand-rock rock" data-value="rock"></i>
+					<i class="fas fa-hand-paper paper" data-value="paper"></i>
+					<i class="fas fa-hand-scissors scissors" data-value="scissors"></i>
+				</div>
+
+				<div class="choice-message computer-message">Computer's choice</div>
+			</div>
+		</div>
+
+		<div class="reset-btn"><button>reset</button></div>
+		<div class="start-btn"><button>start</button></div>
+		<div class="message"></div>
+		
+
+	</section>
+
+	<script src="index.js"></script>
+	<script src="https://kit.fontawesome.com/2fd836de1e.js"></script>
+</body>
+</html>
