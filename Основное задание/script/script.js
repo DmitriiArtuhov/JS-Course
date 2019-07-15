@@ -13,26 +13,26 @@ const depositCheck = document.querySelector('#deposit-check'); // чекбокс
 const budgetDayValue = document.querySelectorAll('.budget_day-value')[0],
 			budgetMonthValue = document.querySelectorAll('.budget_month-value')[0],
 			expensesMonthValue = document.querySelectorAll('.expenses_month-value')[0],
-			accumulatedMonthValue = document.querySelectorAll('.accumulated_month-value')[0],
+			//accumulatedMonthValue = document.querySelectorAll('.accumulated_month-value')[0],
 			additionalIncomeValue = document.querySelectorAll('.additional_income-value')[0],
 			additionalExpensesValue = document.querySelectorAll('.additional_expenses-value')[0],
 			incomePeriodValue = document.querySelectorAll('.income_period-value')[0],
 			targetMonthValue = document.querySelectorAll('.target_month-value')[0];
 
 // Поля ввода
-const salaryAmount = document.querySelector('.salary-amount'),
-			incomeTitle = document.querySelector('.income-title'),
-			incomeItems = document.querySelectorAll('.income-items'),
-			additionalIncomeItems = document.querySelectorAll('.additional_income-item'),
-			expensesTitle = document.querySelector('.expenses-title'),
-			expensesItems = document.querySelectorAll('.expenses-items'),
-			additionalExpenses = document.querySelector('.additional_expenses-item'),
-			targetAmount = document.querySelector('.target-amount'),
-			periodSelect = document.querySelector('.period-select'),
-			periodAmount = document.querySelector('.period-amount'),
-			depositBank = document.querySelector('.deposit-bank'),
-			depositAmount = document.querySelector('.deposit-amount'),
-			depositPercent = document.querySelector('.deposit-percent');
+let salaryAmount = document.querySelector('.salary-amount'),
+		incomeTitle = document.querySelector('.income-title'),
+		incomeItems = document.querySelectorAll('.income-items'),
+		expensesItems = document.querySelectorAll('.expenses-items'),
+		additionalIncomeItems = document.querySelectorAll('.additional_income-item'),
+		expensesTitle = document.querySelector('.expenses-title'),
+		additionalExpenses = document.querySelector('.additional_expenses-item'),
+		targetAmount = document.querySelector('.target-amount'),
+		periodSelect = document.querySelector('.period-select'),
+		periodAmount = document.querySelector('.period-amount'),
+		depositBank = document.querySelector('.deposit-bank'),
+		depositAmount = document.querySelector('.deposit-amount'),
+		depositPercent = document.querySelector('.deposit-percent'); 
 
 
 //--- Главный объект приложения ------------------------------------------------------------------------//
@@ -70,7 +70,12 @@ class appData {
 		this.getBudget();
 	
 		this.showResult();
-		
+
+		saveCookies();
+
+		this.disableFields();
+	}
+	disableFields() {
 		// Переводим все поля ввода в режим "отключено" (disabled)
 		let allClientInputs = document.querySelectorAll('.data input[type=text]');
 		allClientInputs.forEach((item) => {
@@ -79,7 +84,7 @@ class appData {
 
 		// Отображение кнопки "сбросить"
 		start.style.display = 'none';
-		cancel.style.display = 'block';	
+		cancel.style.display = 'block';
 	}
 	showResult() {
 		budgetMonthValue.value = this.budgetMonth;
@@ -105,7 +110,7 @@ class appData {
 	}
 	getBudget() {  
 		// Накопления за месяц (Доходы - расходы) (getAccumulatedMonth - старое название функции, замена названия требуется в 8 пункте)
-		this.budgetMonth = Number(this.budget + this.incomeMonth - this.expensesMonth + (this.moneyDeposit * this.percentDeposit) / 12);
+		this.budgetMonth = Math.floor(Number(this.budget + this.incomeMonth - this.expensesMonth + (this.moneyDeposit * this.percentDeposit) / 12));
 		this.budgetDay = Math.floor((this.budget - this.expensesMonth) / 30);
 	}
 	getTargetMonth() {  // Cрок достижения цели в месяцах (значение округлить в меньшую сторону)
@@ -189,7 +194,7 @@ class appData {
 		cloneItem.children[1].addEventListener('input', this.checkContentNumbers);
 
 		if(nodeList.length === 2) {
-			expensesPlus.style.display = 'none';
+			plusBtn.style.display = 'none';
 		}
 	}
 	getExpenses() {
@@ -248,9 +253,9 @@ class appData {
 	// Вспомогательная функция для reset
 	clear(arr) {
 		for(let i = 0; i < arr.length; i++) {
-			if(arr[i] !== undefined) {
-				arr[i].value = '';
-			}
+			
+			arr[i].value = '';
+			
 		}
 	}
 	// Вспомогательная функция для reset
@@ -282,6 +287,9 @@ class appData {
 
 		start.style.display = 'block';
 		cancel.style.display = 'none';
+
+		// Очистка cookie
+		deleteAllCookies();
 	}
 	// Валидация контента, который вводит пользователь в поля ввода
 	checkContentText() {
@@ -361,3 +369,84 @@ class appData {
 const application = new appData();
 
 application.eventsListeners();
+
+
+//--- Cookies --------------------------------------------------------------------//
+let myCookies = {};
+
+const saveCookies = () => {
+	myCookies['budgetMonth'] = Math.floor(budgetMonthValue.value);
+	myCookies['budgetDay'] = Math.floor(budgetDayValue.value);
+	myCookies['expensesMonth'] = Math.floor(expensesMonthValue.value);
+	myCookies['additionalIncome'] = additionalIncomeValue.value;
+	myCookies['additionalExpenses'] = additionalExpensesValue.value;
+	myCookies['incomePeriod'] = Math.floor(incomePeriodValue.value);
+	myCookies['targetMonth'] = Math.floor(targetMonthValue.value);
+
+	myCookies['isLoaded'] = true;
+
+
+	// Reusable code block
+	document.cookie = '';
+	const expireTime = new Date(Date.now() + 1000).toString();
+	let cookieString = '';
+
+	for(let key in myCookies) {
+		cookieString = `${key} = ${myCookies[key]}; ${expireTime};`;
+		document.cookie = cookieString;
+		if(key === 'isLoaded') {
+			continue;
+		}
+		localStorage.setItem(key, myCookies[key]);
+	}
+	// End reusable block
+}
+
+const loadCookies = () => {
+	if(document.cookie === '') {
+		return;
+	}
+
+	// Reusable code block
+
+	// Loading data from localStorage
+	let myStorage = {};
+	for(let key in localStorage) {
+		if(key === 'length') break;
+		myStorage[key] = localStorage.getItem(key);
+	}
+
+	budgetMonthValue.value = myStorage['budgetMonth'];
+	budgetDayValue.value = myStorage['budgetDay'];
+	expensesMonthValue.value = myStorage['expensesMonth'];
+	additionalIncomeValue.value = myStorage['additionalIncome'];
+	additionalExpensesValue.value = myStorage['additionalExpenses'];
+	incomePeriodValue.value = myStorage['incomePeriod'];
+	targetMonthValue.value = myStorage['targetMonth'];
+
+	// Loading cookies
+	myCookies = {};
+	let keyValuePairs = document.cookie.split(';');
+	for(let key in keyValuePairs) {
+		let cookie = keyValuePairs[key].split('=');
+		myCookies[cookie[0].trim()] = cookie[1];
+	}
+
+	// End reusable block
+	if(myCookies['isLoaded'] === 'true') {
+		application.disableFields();
+	}
+}
+const deleteAllCookies = () => {
+	var cookies = document.cookie.split(";");
+
+	for (let i = 0; i < cookies.length; i++) {
+			let cookie = cookies[i];
+			let eqPos = cookie.indexOf("=");
+			let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+			document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+	}
+	localStorage.clear();
+}
+
+window.addEventListener('load', loadCookies);
