@@ -388,7 +388,7 @@ const saveCookies = () => {
 
 	// Reusable code block
 	document.cookie = '';
-	const expireTime = new Date(Date.now() + 60 * 1000).toString();
+	const expireTime = new Date(Date.now() + 1000).toString();
 	let cookieString = '';
 
 	for(let key in myCookies) {
@@ -403,10 +403,6 @@ const saveCookies = () => {
 }
 
 const loadCookies = () => {
-	if(document.cookie === '') {
-		return;
-	}
-
 	// Loading data from localStorage
 	let myStorage = {};
 	for(let key in localStorage) {
@@ -422,6 +418,9 @@ const loadCookies = () => {
 	incomePeriodValue.value = myStorage['incomePeriod'];
 	targetMonthValue.value = myStorage['targetMonth'];
 
+	if(document.cookie === '') {
+		return;
+	}
 	// Loading cookies
 	myCookies = {};
 	let keyValuePairs = document.cookie.split(';');
