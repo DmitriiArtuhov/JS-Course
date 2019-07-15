@@ -388,7 +388,7 @@ const saveCookies = () => {
 
 	// Reusable code block
 	document.cookie = '';
-	const expireTime = new Date(Date.now() + 1000).toString();
+	const expireTime = new Date(Date.now() + 60 * 1000).toString();
 	let cookieString = '';
 
 	for(let key in myCookies) {
@@ -406,8 +406,6 @@ const loadCookies = () => {
 	if(document.cookie === '') {
 		return;
 	}
-
-	// Reusable code block
 
 	// Loading data from localStorage
 	let myStorage = {};
@@ -432,7 +430,6 @@ const loadCookies = () => {
 		myCookies[cookie[0].trim()] = cookie[1];
 	}
 
-	// End reusable block
 	if(myCookies['isLoaded'] === 'true') {
 		application.disableFields();
 	}
