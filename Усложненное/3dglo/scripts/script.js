@@ -3,16 +3,16 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	function countTimer() {
 		let timerHours = document.querySelector('#timer-hours'),
-				timerMinutes = document.querySelector('#timer-minutes');
-				// timerSec = document.querySelector('#timer-seconds');
+				timerMinutes = document.querySelector('#timer-minutes'),
+				timerSec = document.querySelector('#timer-seconds');
 
 		function getTime() {
 			let date = new Date(),
 					minutes  = date.getUTCMinutes(),
-					hours = date.getUTCHours();
-					// sec = date.getUTCSeconds();
+					hours = date.getUTCHours(),
+					sec = date.getUTCSeconds();
 
-			return {hours, minutes};
+			return {hours, minutes, sec};
 		}
 
 		function updateClock() {
@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 			
 			time.minutes < 10 ? timerMinutes.textContent = '0' + time.minutes : timerMinutes.textContent = time.minutes;
-			// time.sec < 10 ? timerSec.textContent = '0' + time.sec : timerSec.textContent = time.sec;
+			time.sec < 10 ? timerSec.textContent = '0' + time.sec : timerSec.textContent = time.sec;
 
 			setInterval(updateClock, 1000);
 		}
