@@ -33,6 +33,7 @@ function animate() {
 start.addEventListener('click', function(e) {
 	e.preventDefault();
 
+	cancelAnimationFrame(id);
 	id = requestAnimationFrame(animate);
 });
 
@@ -44,7 +45,9 @@ stop.addEventListener('click', function(e) {
 
 reset.addEventListener('click', function(e) {
 	e.preventDefault();
-
+	
+	cancelAnimationFrame(id);
+	id = requestAnimationFrame(animate);
 	position.leftX = 0;
-	position.rightX = 0;
+	position.rightX = 600;
 });
