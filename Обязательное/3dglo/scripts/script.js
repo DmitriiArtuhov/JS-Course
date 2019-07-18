@@ -49,6 +49,123 @@ window.addEventListener('DOMContentLoaded', function() {
 		
 	}
 
-	countTimer('16 july 20:57:30 2019');
+	countTimer('19 july 20:57:30 2019');
+
+
+	//---  Lesson13  ---//
+	// menu
+	const toggleMenu = () => {
+
+		const btnMenu = document.querySelector('.menu'),
+					menu = document.querySelector('menu'),
+					closeBtn = document.querySelector('.close-btn'),
+					menuItems = menu.querySelectorAll('ul > li');
+
+		const handleMenu = () => {
+			menu.classList.toggle('active-menu');
+		}
+		
+		btnMenu.addEventListener('click', handleMenu);
+		closeBtn.addEventListener('click', handleMenu);
+
+		menuItems.forEach(item => {
+			item.addEventListener('click', handleMenu);
+		});
+	}
+
+	toggleMenu();
+
+	// popup
+
+	const togglePopUp = () => {
+		const popup = document.querySelector('.popup'),
+					popupBtn = document.querySelectorAll('.popup-btn'),
+					popupClose = document.querySelector('.popup-close');
+
+		const fadeIn = () => {
+			popup.classList.remove('modal-animation-out');
+			popup.classList.add('modal-animation-in');
+		}
+
+		const fadeOut = () => {
+			popup.classList.add('modal-animation-out');
+			popup.classList.remove('modal-animation-in');
+		}
+
+
+		popupBtn.forEach((item) => {
+			item.addEventListener('click', () => {
+				if(window.innerWidth > 320) {
+					popup.style.display = 'block';
+					fadeIn();
+				} else {
+					popup.style.display = 'block';
+				}
+				
+			});
+		});
+
+		popupClose.addEventListener('click', () => {
+			if(window.innerWidth > 320) {
+				fadeOut();
+				setTimeout(() => {
+					popup.style.display = 'none';
+				}, 500);
+			} else {
+				popup.style.display = 'none';
+			}
+			
+		});
+
+	}
+
+	togglePopUp();
+
+	//	Smooth scroll
+	const scrollBtn = document.querySelector('#scroll-btn');
+
+	const smoothScroll = (target, duration) => {
+		let targetElement = document.querySelector(target);
+		let targetPosition = targetElement.getBoundingClientRect().top;
+		let startPosition = window.pageYOffset;
+		let distance = targetPosition - startPosition;
+		let startTime = null;
+		// Animation function
+		const animation = (currentTime) => {
+			if(startTime === null) {
+				startTime = currentTime;
+			}
+
+			let timeElapsed = currentTime - startTime;
+			let run = ease(timeElapsed, startPosition, targetPosition, duration);
+			window.scrollTo(0, run);
+
+			if(timeElapsed < duration) {
+				requestAnimationFrame(animation);
+			}
+			
+		}
+		// Animation type function
+		const ease = (t, b, c, d) => {
+			t /= d / 2;
+			if(t < 1) return c / 2 * t * t + b;
+			t--;
+			return -c / 2 * (t * (t - 2) - 1) + b;
+		}
+
+		requestAnimationFrame(animation);
+	}
+
+	
+	scrollBtn.addEventListener('click', () => {
+		smoothScroll(scrollBtn.hash, 800); 
+	});
+
+	document.querySelectorAll('ul > li > a').forEach(item => {
+		item.addEventListener('click', () => {
+			smoothScroll(item.hash, 1000); 
+		});
+	});
+
 
 });
