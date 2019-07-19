@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	countTimer('19 july 20:57:30 2019');
 
 
-	//---  Lesson13  ---//
+	//---  Lesson13 - 14  ---//
 	// menu
 	const toggleMenu = () => {
 
@@ -60,7 +60,29 @@ window.addEventListener('DOMContentLoaded', function() {
 					menu = document.querySelector('menu'),
 					closeBtn = document.querySelector('.close-btn'),
 					menuItems = menu.querySelectorAll('ul > li');
+	
+		
+		menu.addEventListener('click', (e) => {
+			let target = e.target;
+			target = target.closest('ul > li');
 
+			if(target) {
+				handleMenu();
+			}
+				
+		});
+
+		window.addEventListener('click', (e) => {
+			let target = e.target;
+			const imgBtn = btnMenu.querySelector('img');
+			const textBtn = btnMenu.querySelector('small');
+
+			if(target !== menu && menu.classList.contains('active-menu') && target !== imgBtn && target !== textBtn) {
+				handleMenu();
+			}
+									
+		});
+		
 		const handleMenu = () => {
 			menu.classList.toggle('active-menu');
 		}
@@ -68,9 +90,6 @@ window.addEventListener('DOMContentLoaded', function() {
 		btnMenu.addEventListener('click', handleMenu);
 		closeBtn.addEventListener('click', handleMenu);
 
-		menuItems.forEach(item => {
-			item.addEventListener('click', handleMenu);
-		});
 	}
 
 	toggleMenu();
@@ -92,20 +111,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			popup.classList.remove('modal-animation-in');
 		}
 
-
-		popupBtn.forEach((item) => {
-			item.addEventListener('click', () => {
-				if(window.innerWidth > 320) {
-					popup.style.display = 'block';
-					fadeIn();
-				} else {
-					popup.style.display = 'block';
-				}
-				
-			});
-		});
-
-		popupClose.addEventListener('click', () => {
+		const popupCloseFunc = () => {
 			if(window.innerWidth > 320) {
 				fadeOut();
 				setTimeout(() => {
@@ -114,7 +120,37 @@ window.addEventListener('DOMContentLoaded', function() {
 			} else {
 				popup.style.display = 'none';
 			}
+		}
+
+		const popupOpenFunc = () => {
+			if(window.innerWidth > 320) {
+				popup.style.display = 'block';
+				fadeIn();
+			} else {
+				popup.style.display = 'block';
+			}
+		}
+
+
+		popupBtn.forEach((item) => {
+			item.addEventListener('click', () => {
+				popupOpenFunc();
+				
+			});
+		});
+
+		popupClose.addEventListener('click', () => {
+			popupCloseFunc();
 			
+		});
+
+		popup.addEventListener('click', (e) => {
+			let target = e.target;
+			target = target.closest('.popup-content');
+
+			if(!target) {
+				popupCloseFunc();
+			}
 		});
 
 	}
@@ -166,6 +202,45 @@ window.addEventListener('DOMContentLoaded', function() {
 			smoothScroll(item.hash, 1000); 
 		});
 	});
+
+
+
+	//---  Lesson14  ---//
+	// Tabs
+
+	const tabs = () => {
+		let tabHeader = document.querySelector('.service-header'),
+				tabs = tabHeader.querySelectorAll('.service-header-tab'),
+				tabContent = document.querySelectorAll('.service-tab');
+		
+		const toggleTabContent = (index) => {
+			for(let i = 0; i < tabContent.length; i++) {
+				if(index === i) {
+					tabs[i].classList.add('active');
+					tabContent[i].classList.remove('d-none');
+				} else {
+					tabs[i].classList.remove('active');
+					tabContent[i].classList.add('d-none');
+				}
+			}
+		}
+		
+		tabHeader.addEventListener('click', (e) => {
+			let target = e.target;
+			target = target.closest('.service-header-tab');
+			
+			if(target) {
+				tabs.forEach((item , i) => {
+					if(item === target) {
+						toggleTabContent(i);
+					}
+				});
+			}
+		});
+	}
+
+	tabs();
+
 
 
 });
