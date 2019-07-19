@@ -83,13 +83,16 @@ window.addEventListener('DOMContentLoaded', function() {
 					popupClose = document.querySelector('.popup-close');
 
 		const fadeIn = () => {
-			popup.classList.remove('modal-animation-out');
-			popup.classList.add('modal-animation-in');
+			popup.style.transition = '0.5s';
+			setTimeout(() => {
+				popup.style.opacity = 1;
+			}, 100);
+			
 		}
 
 		const fadeOut = () => {
-			popup.classList.add('modal-animation-out');
-			popup.classList.remove('modal-animation-in');
+			popup.style.transition = '0.5s';
+			popup.style.opacity = 0;
 		}
 
 
@@ -97,6 +100,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			item.addEventListener('click', () => {
 				if(window.innerWidth > 320) {
 					popup.style.display = 'block';
+					popup.style.opacity = '0';
 					fadeIn();
 				} else {
 					popup.style.display = 'block';
