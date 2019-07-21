@@ -404,32 +404,35 @@ const saveCookies = () => {
 
 const loadCookies = () => {
 	// Loading data from localStorage
-	application.disableFields();
+	if(localStorage.getItem('budgetMonth') !== null) {
+		application.disableFields();
 
-	let myStorage = {};
-	for(let key in localStorage) {
-		if(key === 'length') break;
-		myStorage[key] = localStorage.getItem(key);
-	}
+		let myStorage = {};
+		for(let key in localStorage) {
+			if(key === 'length') break;
+			myStorage[key] = localStorage.getItem(key);
+		}
 
-	budgetMonthValue.value = myStorage['budgetMonth'];
-	budgetDayValue.value = myStorage['budgetDay'];
-	expensesMonthValue.value = myStorage['expensesMonth'];
-	additionalIncomeValue.value = myStorage['additionalIncome'];
-	additionalExpensesValue.value = myStorage['additionalExpenses'];
-	incomePeriodValue.value = myStorage['incomePeriod'];
-	targetMonthValue.value = myStorage['targetMonth'];
+		budgetMonthValue.value = myStorage['budgetMonth'];
+		budgetDayValue.value = myStorage['budgetDay'];
+		expensesMonthValue.value = myStorage['expensesMonth'];
+		additionalIncomeValue.value = myStorage['additionalIncome'];
+		additionalExpensesValue.value = myStorage['additionalExpenses'];
+		incomePeriodValue.value = myStorage['incomePeriod'];
+		targetMonthValue.value = myStorage['targetMonth'];
 
-	if(document.cookie === '') {
-		return;
+		if(document.cookie === '') {
+			return;
+		}
+		// Loading cookies
+		myCookies = {};
+		let keyValuePairs = document.cookie.split(';');
+		for(let key in keyValuePairs) {
+			let cookie = keyValuePairs[key].split('=');
+			myCookies[cookie[0].trim()] = cookie[1];
+		}
 	}
-	// Loading cookies
-	myCookies = {};
-	let keyValuePairs = document.cookie.split(';');
-	for(let key in keyValuePairs) {
-		let cookie = keyValuePairs[key].split('=');
-		myCookies[cookie[0].trim()] = cookie[1];
-	}
+	
 }
 const deleteAllCookies = () => {
 	var cookies = document.cookie.split(";");
