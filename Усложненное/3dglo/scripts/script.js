@@ -53,9 +53,9 @@ window.addEventListener('DOMContentLoaded', function() {
 		let stringH = '',
 				stringM = '',
 				stringS = '';
-					if(h) stringH += h + ' ';
-					if(m) stringM += m + ' ';
-					if(s) stringS += s + ' ';
+					if(h && h !== 24) stringH += h < 10 ? '0' + h : h; else stringH += '00';
+					if(m) stringM += m < 10 ? '0' + m : m; else stringM += '00';
+					if(s) stringS += s < 10 ? '0' + s : s; else stringS += '00';
 		 
 					return  {stringH, stringM, stringS};
 			}
