@@ -1,39 +1,88 @@
 window.addEventListener('DOMContentLoaded', function() {
 	'use strict';
 
-	function countTimer() {
-		let timerHours = document.querySelector('#timer-hours'),
-				timerMinutes = document.querySelector('#timer-minutes'),
-				timerSec = document.querySelector('#timer-seconds');
+	// function countTimer() {
+	// 	let timerHours = document.querySelector('#timer-hours'),
+	// 			timerMinutes = document.querySelector('#timer-minutes'),
+	// 			timerSec = document.querySelector('#timer-seconds');
 
-		function getTime() {
-			let date = new Date(),
-					minutes  = date.getUTCMinutes(),
-					hours = date.getUTCHours(),
-					sec = date.getUTCSeconds();
+	// 	function getTime() {
+	// 		let date = new Date();
+	// 		date.setUTCHours(23);
+	// 		let	minutes  = date.getUTCMinutes(),
+	// 				hours = date.getUTCHours(),
+	// 				sec = date.getUTCSeconds();
 
-			return {hours, minutes, sec};
-		}
+	// 		return {date, hours, minutes, sec};
+	// 	}
 
-		function updateClock() {
-			let time = getTime();
+	// 	function updateClock() {
+	// 		let time = getTime();
 
-			if(time.hours == 24) {
-				time.hours = 0;
-				timerHours.textContent = '0' + time.hours;
-			} else {
-				time.hours < 10 ? timerHours.textContent = '0' + time.hours : timerHours.textContent = time.hours;
+			// if(time.date.getUTCHours() === 24) {
+			// 	// time.hours = 0;
+			// 	// timerHours.textContent = '0' + time.hours;
+			// 	time.date.setUTCHours('0');
+			// } else {
+			// 	time.hours < 10 ? timerHours.textContent = '0' + time.hours : timerHours.textContent = time.hours;
+			// 	time.minutes < 10 ? timerMinutes.textContent = '0' + time.minutes : timerMinutes.textContent = time.minutes;
+			// 	time.sec < 10 ? timerSec.textContent = '0' + time.sec : timerSec.textContent = time.sec;
+			// }
+			
+	// 		setInterval(updateClock, 1000);
+	// 	}
+	// 	updateClock();
+
+	// 	getTime();
+	// }
+
+	// countTimer();
+
+
+	let timerHours = document.querySelector('#timer-hours');
+	let	timerMinutes = document.querySelector('#timer-minutes');
+	let	timerSec = document.querySelector('#timer-seconds');
+
+	(function setCounter(callback) {
+		function output( ms ){
+
+			let h = +Math.floor( ms / (60*60*1000)),
+			m = +Math.floor((ms -= h*60*60*1000) / (60*1000) ),
+			s = +Math.floor((ms -= m*60*1000) / 1000 );
+
+		let stringH = '',
+				stringM = '',
+				stringS = '';
+					if(h) stringH += h + ' ';
+					if(m) stringM += m + ' ';
+					if(s) stringS += s + ' ';
+		 
+					return  {stringH, stringM, stringS};
 			}
 			
-			time.minutes < 10 ? timerMinutes.textContent = '0' + time.minutes : timerMinutes.textContent = time.minutes;
-			time.sec < 10 ? timerSec.textContent = '0' + time.sec : timerSec.textContent = time.sec;
 
-			setInterval(updateClock, 1000);
-		}
-		updateClock();
+			let endCounter = /(?:^|; )endCounter=([^;]*)/.exec(document.cookie);
+					if(endCounter) {
+							endCounter = new Date(+endCounter[1]);
+					} else {
+							endCounter = new Date();
+							endCounter.setTime(endCounter.getTime() + 24*60*60*1000);
+							document.cookie = "endCounter=" + +endCounter + ';path=/;expires=' + endCounter.toUTCString();
+					}
 
+			(function counter(){
+								let left = endCounter - new Date('00:00:00');
+								if(left <= 0){
+									return setCounter();
+								} 			 
+								callback( output( endCounter - new Date() ) );			 
+								setTimeout(counter, 1000);
+			}());
 
-	}
-	countTimer();
+	}( function( str ){
+		timerHours.textContent = str['stringH'];
+		timerMinutes.textContent = str['stringM'];
+		timerSec.textContent = str['stringS'];
 
+	}));
 });
