@@ -83,24 +83,28 @@ window.addEventListener('DOMContentLoaded', function() {
 					popupClose = document.querySelector('.popup-close');
 
 		const fadeIn = () => {
-			popup.style.transition = '0.5s';
-			setTimeout(() => {
-				popup.style.opacity = 1;
-			}, 100);
+			popup.style.display = 'block';
+			popup.animate([
+				{ opacity: 0 },
+				{ opacity: 1 }
+			], 500);
 			
 		}
 
 		const fadeOut = () => {
-			popup.style.transition = '0.5s';
-			popup.style.opacity = 0;
+			popup.animate([
+				{ opacity: 1 },
+				{ opacity: 0 }
+			], 500);
+			setTimeout(() => {
+				popup.style.display = 'none';
+			}, 499);
 		}
 
 
 		popupBtn.forEach((item) => {
 			item.addEventListener('click', () => {
 				if(window.innerWidth > 320) {
-					popup.style.display = 'block';
-					popup.style.opacity = '0';
 					fadeIn();
 				} else {
 					popup.style.display = 'block';
@@ -112,9 +116,6 @@ window.addEventListener('DOMContentLoaded', function() {
 		popupClose.addEventListener('click', () => {
 			if(window.innerWidth > 320) {
 				fadeOut();
-				setTimeout(() => {
-					popup.style.display = 'none';
-				}, 500);
 			} else {
 				popup.style.display = 'none';
 			}
