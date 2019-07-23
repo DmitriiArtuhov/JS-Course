@@ -343,5 +343,31 @@ window.addEventListener('DOMContentLoaded', function() {
 	slider();
 
 
+	//---  Lesson15  ---//
+	// Regular expressions
+
+	const numberFields = document.querySelectorAll('.calc-item');
+
+	numberFields.forEach((item) => {
+		item.addEventListener('input', () => {
+			item.value.replace(/D/gi, '');
+		});
+	});
+
+
+	// Data-attributes
+
+	const teamContainer = document.querySelector('.command');
+
+	teamContainer.addEventListener('mouseover', (e) => {
+		let target = e.target;
+
+		if(target.classList.contains('command__photo')) {
+			target.src = target.getAttribute('data-img');
+		}
+	});
+
 
 });
+
+
