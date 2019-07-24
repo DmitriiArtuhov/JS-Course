@@ -358,12 +358,21 @@ window.addEventListener('DOMContentLoaded', function() {
 	// Data-attributes
 
 	const teamContainer = document.querySelector('.command');
+	const teamPhotos = document.querySelectorAll('.command__photo');
+	const teamPhotosPaths = [];
+
+	teamPhotos.forEach((item) => teamPhotosPaths.push(item.src));
+
 
 	teamContainer.addEventListener('mouseover', (e) => {
 		let target = e.target;
 
-		if(target.classList.contains('command__photo')) {
+		if(target.matches('.command__photo')) {
 			target.src = target.getAttribute('data-img');
+		} else {
+			teamPhotos.forEach((item, index) => {
+				item.src = teamPhotosPaths[index];
+			});
 		}
 	});
 
