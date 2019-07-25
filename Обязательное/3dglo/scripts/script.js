@@ -15,8 +15,8 @@ window.addEventListener('DOMContentLoaded', function() {
 					minutes  = Math.floor((timeRemaining / 60) % 60),
 					hours = Math.floor(timeRemaining / 60 / 60); 
 
-					return {timeRemaining, hours, minutes, seconds};
-		}
+			return {timeRemaining, hours, minutes, seconds};
+		};
 
 		let timeLeft = getTimeRemaining(),
 				zeroValue = '00';
@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			updateClock();
 		}
 		
-	}
+	};
 
 	countTimer('19 july 20:57:30 2019');
 
@@ -85,12 +85,12 @@ window.addEventListener('DOMContentLoaded', function() {
 		
 		const handleMenu = () => {
 			menu.classList.toggle('active-menu');
-		}
+		};
 		
 		btnMenu.addEventListener('click', handleMenu);
 		closeBtn.addEventListener('click', handleMenu);
 
-	}
+	};
 
 	toggleMenu();
 
@@ -104,12 +104,12 @@ window.addEventListener('DOMContentLoaded', function() {
 		const fadeIn = () => {
 			popup.classList.remove('modal-animation-out');
 			popup.classList.add('modal-animation-in');
-		}
+		};
 
 		const fadeOut = () => {
 			popup.classList.add('modal-animation-out');
 			popup.classList.remove('modal-animation-in');
-		}
+		};
 
 		const popupCloseFunc = () => {
 			if(window.innerWidth > 320) {
@@ -120,7 +120,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			} else {
 				popup.style.display = 'none';
 			}
-		}
+		};
 
 		const popupOpenFunc = () => {
 			if(window.innerWidth > 320) {
@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			} else {
 				popup.style.display = 'block';
 			}
-		}
+		};
 
 
 		popupBtn.forEach((item) => {
@@ -153,7 +153,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 		});
 
-	}
+	};
 
 	togglePopUp();
 
@@ -180,17 +180,17 @@ window.addEventListener('DOMContentLoaded', function() {
 				requestAnimationFrame(animation);
 			}
 			
-		}
+		};
 		// Animation type function
 		const ease = (t, b, c, d) => {
 			t /= d / 2;
 			if(t < 1) return c / 2 * t * t + b;
 			t--;
 			return -c / 2 * (t * (t - 2) - 1) + b;
-		}
+		};
 
 		requestAnimationFrame(animation);
-	}
+	};
 
 	
 	scrollBtn.addEventListener('click', () => {
@@ -237,7 +237,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				});
 			}
 		});
-	}
+	};
 
 	tabs();
 
@@ -262,15 +262,15 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 			dots = document.querySelectorAll('.dot');
 			dots[0].classList.add('dot-active');
-		}
+		};
 
 		const hideElem = (elems, index, className) => {
 			elems[index].classList.remove(className);
-		}
+		};
 
 		const showElem = (elems, index, className) => {
 			elems[index].classList.add(className);
-		}
+		};
 
 		const autoPlaySlide = () => {
 			hideElem(slides, currentSlide, 'portfolio-item-active');
@@ -283,15 +283,29 @@ window.addEventListener('DOMContentLoaded', function() {
 
 			showElem(slides, currentSlide, 'portfolio-item-active');
 			showElem(dots, currentSlide, 'dot-active');
-		}
+		};
 
 		const startSlide = (time = 1500) => {
 			interval = setInterval(autoPlaySlide, time);
-		}
+		};
 
 		const stopSlide = () => {
 			clearInterval(interval);
-		}
+		};
+
+		const checkMatch = (value) => {
+			if(value.matches('#arrow-right')) {
+				currentSlide++;
+			} else if (value.matches('#arrow-left')) {
+				currentSlide--;
+			} else if (value.matches('.dot')) {
+				dots.forEach((item, index) => {
+					if(item === value) {
+						currentSlide = index;
+					}
+				});
+			}
+		};
 
 		slider.addEventListener('click', (e) => {
 			e.preventDefault();
@@ -303,17 +317,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			hideElem(slides, currentSlide, 'portfolio-item-active');
 			hideElem(dots, currentSlide, 'dot-active');
 
-			if(target.matches('#arrow-right')) {
-				currentSlide++;
-			} else if(target.matches('#arrow-left')) {
-				currentSlide--;
-			} else if(target.matches('.dot')) {
-				dots.forEach((item, index) => {
-					if(item === target) {
-						currentSlide = index;
-					}
-				});
-			}
+			checkMatch(target);
 
 			if(currentSlide >= slides.length) currentSlide = 0;
 			if(currentSlide < 0) currentSlide = slides.length - 1;
@@ -346,13 +350,19 @@ window.addEventListener('DOMContentLoaded', function() {
 	//---  Lesson15  ---//
 	// Regular expressions
 
-	const numberFields = document.querySelectorAll('.calc-item');
-
-	numberFields.forEach((item) => {
-		item.addEventListener('input', () => {
-			item.value.replace(/D/gi, '');
+	const checkFields = () => {
+		const numberFields = document.querySelectorAll('input.calc-item');
+	
+		numberFields.forEach((item) => {
+			item.type = 'text';
+			item.addEventListener('input', () => {
+				item.value = item.value.replace(/\D/gi, '');
+			});
 		});
-	});
+	}
+
+	checkFields();
+	
 
 
 	// Data-attributes
