@@ -417,22 +417,47 @@ const clearInputs = (inputs) => {
 
 //checking inputs on valid data
 const validateInputs = (name, email, phone, textarea = false) => {
-	const regExpText = /\w+/gi,
-				regExpEmail = /.+@.+\..+/i,
-				regExpPhone = /^\+?\d+$/;
+	const regExpText = /[^а-яё!., ]/gi,
+				regExpEmail = /[!?*#а-яё'",.<>/^%&()_№\{\}\[\]=]/gi,
+				regExpPhone = /[^0-9+]/gi;
 
-	if(name.value.search(regExpText) === -1 && email.value.match(regExpEmail) && phone.value.match(regExpPhone)) {
-		if(!textarea) {
-			return true;
-		} else if(textarea && textarea.value.search(regExpText) === -1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+	name.addEventListener('input', () => {
+		name.value = name.value.replace(regExpText, '');
+	});
 	
-	return false;
+	email.addEventListener('input', () => {
+		email.value = email.value.replace(regExpEmail, '');
+	});
+
+	phone.addEventListener('input', () => {
+		phone.value = phone.value.replace(regExpPhone, '');
+	});
+
+	if(textarea) {
+		textarea.addEventListener('input', () => {
+			textarea.value = textarea.value.replace(regExpText, '');
+		});
+	}
 }
+
+//creating wait-img
+const creatingWaitImg = () => {
+	const img = document.createElement('img');
+	img.style.cssText = 'width: 40px; height: 40px;';
+	img.setAttribute('src', './images/wait.png');
+	return img;
+}
+
+//FormData processing
+const FormDataProcessing = (form) => {
+	const formData = new FormData(form);
+	const body = {};
+	formData.forEach((item, key) => {
+		body[key] = item;
+	});
+
+	return body;
+} 
 
 //output the message
 const output = (result, img) => {
@@ -444,137 +469,37 @@ const output = (result, img) => {
 }
 
 
-const sendForm1 = () => {
 
-	const form = document.querySelector('#form1');
+const formProcessing = () => {
+	const forms = document.querySelectorAll('form');
 
-	let inputs = form.querySelectorAll('input');
-	const inputName = form.querySelector('.form-name'),
-				inputEmail = form.querySelector('.form-email'),
-				inputPhone = form.querySelector('.form-phone');
+	forms.forEach((form) => {
+		let inputs = form.querySelectorAll('input');
+		const inputName = form.querySelector('.form-name'),
+					inputEmail = form.querySelector('.form-email'),
+					inputPhone = form.querySelector('.form-phone'),
+					textarea = form.querySelector('#form2-message');
 
-	const img = document.createElement('img');
-	img.style.cssText = 'width: 40px; height: 40px;';
-	img.setAttribute('src', './images/wait.png');
+		const img = creatingWaitImg();
 
-	form.addEventListener('submit', (event) => {
-		event.preventDefault();
-		form.appendChild(img);
-
-		if(validateInputs(inputName, inputEmail, inputPhone)) {
-
-			const formData = new FormData(form);
-			const body = {};
-			formData.forEach((item, key) => {
-				body[key] = item;
-			});
-
+		validateInputs(inputName, inputEmail, inputPhone, textarea);
+	
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			form.appendChild(img);
+	
+			const body = FormDataProcessing(form);
+	
 			postData(body, () => {
 				output(true, img);
 			}, (error) => {
-				output(false, img);
+				output(false, img)
 				console.error(error);
 			});
-
+	
 			clearInputs(inputs);
-
-		} else {
-			alert('Некоректные данные!');
-			clearInputs(inputs);
-		}
+		});		
 	});
-};
+}
 
-sendForm1();
-
-
-
-const sendForm2 = () => {
-	const form = document.querySelector('#form2');
-
-	let inputs = form.querySelectorAll('input');
-	const inputName = form.querySelector('#form2-name'),
-				inputEmail = form.querySelector('#form2-email'),
-				inputPhone = form.querySelector('#form2-phone'),
-				textarea = form.querySelector('#form2-message');
-
-	const img = document.createElement('img');
-	img.style.cssText = 'width: 40px; height: 40px;';
-	img.setAttribute('src', './images/wait.png');
-
-	form.addEventListener('submit', (event) => {
-		event.preventDefault();
-		form.appendChild(img);
-
-		if(validateInputs(inputName, inputEmail, inputPhone, textarea)) {
-
-			const formData = new FormData(form);
-			const body = {};
-			formData.forEach((item, key) => {
-				body[key] = item;
-			});
-
-			postData(body, () => {
-				output(true, img);
-			}, (error) => {
-				output(false, img);
-				console.error(error);
-			});
-
-			clearInputs(inputs);
-
-		} else {
-			alert('Некоректные данные!');
-			clearInputs(inputs);
-		}
-	});
-};
-
-sendForm2();
-
-
-
-
-const sendForm3 = () => {
-	const form = document.querySelector('#form3');
-
-	let inputs = form.querySelectorAll('input');
-	const inputName = form.querySelector('.form-name'),
-				inputEmail = form.querySelector('.form-email'),
-				inputPhone = form.querySelector('.form-phone');
-
-	const img = document.createElement('img');
-	img.style.cssText = 'width: 40px; height: 40px;';
-	img.setAttribute('src', './images/wait.png');
-
-	form.addEventListener('submit', (event) => {
-		event.preventDefault();
-		form.appendChild(img);
-
-		console.log(inputName.value, inputEmail.value, inputPhone.value);
-
-		if(validateInputs(inputName, inputEmail, inputPhone)) {
-
-			const formData = new FormData(form);
-			const body = {};
-			formData.forEach((item, key) => {
-				body[key] = item;
-			});
-
-			postData(body, () => {
-				output(true, img);
-			}, (error) => {
-				output(false, img);
-				console.error(error);
-			});
-
-			clearInputs(inputs);
-
-		} else {
-			alert('Некоректные данные!');
-			clearInputs(inputs);
-		}
-	});
-};
-
-sendForm3();
+formProcessing();
