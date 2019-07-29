@@ -382,30 +382,37 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
 
-// Lesson 17
-// Send ajax form
+// Lesson 18
+// Refactor ajax form
 
-//processing request
-const postData = (body, outputData, errorData) => {
-	const request = new XMLHttpRequest();
-	request.addEventListener('readystatechange', () => {
+//processing request  //, outputData, errorData
+const postData = (body) => {
 
-		if(request.readyState !== 4) {
-			return;
-		}
+	return new Promise((resolve, reject) => {
+		const request = new XMLHttpRequest();
+		request.addEventListener('readystatechange', () => {
+			if(request.readyState !== 4) {
+				return;
+			}
 
-		if(request.status === 200) {
-			outputData();
-		} else {
-			errorData(request.status);
-		}
+			if(request.status === 200) {
+				//outputData();
+				resolve();
+			} else {
+				reject(request.status);
+			}
+
+		});
+
+		request.open('POST', './server.php');
+		request.setRequestHeader('Content-Type', 'application/json');
+		
+		request.send(JSON.stringify(body));
+		console.log(body);
+
 	});
 
-	request.open('POST', './server.php');
-	request.setRequestHeader('Content-Type', 'application/json');
 	
-	request.send(JSON.stringify(body));
-	console.log(body);
 }
 
 //cleaning inputs
@@ -490,12 +497,23 @@ const formProcessing = () => {
 	
 			const body = FormDataProcessing(form);
 	
-			postData(body, () => {
-				output(true, img);
-			}, (error) => {
-				output(false, img)
-				console.error(error);
-			});
+			// postData(body, () => {
+			// 	output(true, img);
+			// }, (error) => {
+			// 	output(false, img)
+			// 	console.error(error);
+			// });
+
+			postData(body)
+				.then(() => {
+					output(true, img);
+				})
+				.catch((err) => {
+					console.error(err);
+					output(false, img);
+				});
+
+
 	
 			clearInputs(inputs);
 		});		
