@@ -418,7 +418,7 @@ const clearInputs = (inputs) => {
 //checking inputs on valid data
 const validateInputs = (name, email, phone, textarea = false) => {
 	const regExpText = /[^а-яё!., ]/gi,
-				regExpEmail = /[!?*#а-яё'",.<>/^%&()_№\{\}\[\]=]/gi,
+				regExpEmail = /[!?*#а-яё'",<>/^%&()_№\{\}\[\]=]/gi,
 				regExpPhone = /[^0-9+]/gi;
 
 	name.addEventListener('input', () => {
