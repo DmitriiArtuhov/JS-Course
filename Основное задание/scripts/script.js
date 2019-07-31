@@ -387,30 +387,38 @@ window.addEventListener('DOMContentLoaded', function() {
 
 //processing request  //, outputData, errorData
 const postData = (body) => {
-
-	return new Promise((resolve, reject) => {
-		const request = new XMLHttpRequest();
-		request.addEventListener('readystatechange', () => {
-			if(request.readyState !== 4) {
-				return;
-			}
-
-			if(request.status === 200) {
-				//outputData();
-				resolve();
-			} else {
-				reject(request.status);
-			}
-
-		});
-
-		request.open('POST', './server.php');
-		request.setRequestHeader('Content-Type', 'application/json');
-		
-		request.send(JSON.stringify(body));
-		console.log(body);
-
+	return fetch('./server.php', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(body)
 	});
+
+
+	// return new Promise((resolve, reject) => {
+	// 	const request = new XMLHttpRequest();
+	// 	request.addEventListener('readystatechange', () => {
+	// 		if(request.readyState !== 4) {
+	// 			return;
+	// 		}
+
+	// 		if(request.status === 200) {
+	// 			//outputData();
+	// 			resolve();
+	// 		} else {
+	// 			reject(request.status);
+	// 		}
+
+	// 	});
+
+	// 	request.open('POST', './server.php');
+	// 	request.setRequestHeader('Content-Type', 'application/json');
+		
+	// 	request.send(JSON.stringify(body));
+	// 	console.log(body);
+
+	// });
 
 	
 }
@@ -497,23 +505,16 @@ const formProcessing = () => {
 	
 			const body = FormDataProcessing(form);
 	
-			// postData(body, () => {
-			// 	output(true, img);
-			// }, (error) => {
-			// 	output(false, img)
-			// 	console.error(error);
-			// });
-
 			postData(body)
-				.then(() => {
+				.then((res) => {
+					if(res.status !== 200) throw new Error('invalid status code.');
 					output(true, img);
+					console.log(res);
 				})
 				.catch((err) => {
 					console.error(err);
 					output(false, img);
 				});
-
-
 	
 			clearInputs(inputs);
 		});		
