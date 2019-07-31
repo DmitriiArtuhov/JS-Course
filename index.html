@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Cars JSON</title>
+
+	<style>
+		body, html {
+			padding: 0;
+			margin: 0;
+			width: 100%;
+		}
+
+		.container {
+			width: 100%;
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.cards__wrapper {
+			display: flex;
+			flex-wrap: wrap;
+			font-family: sans-serif;
+			justify-content: space-around;
+			align-items: center;
+
+		}
+
+		.card {
+			width: 300px;
+			position: relative;
+			margin-top: 30px;
+			padding: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+		}
+
+		img {
+			width: 100%;
+			max-height: calc(100% / 16 * 9);
+		}
+
+		h4 {
+			text-align: center;
+		}
+		
+		span {
+			margin-right: 20px;
+			font-style: italic;
+		}
+
+		select {
+			margin-top: 30px;
+			width: 175px;
+			padding: 10px 5px;
+		}
+
+	</style>
+
+</head>
+<body>
+		<div class="container">
+			<aside>
+				<select name="country">
+					<option value="all">All</option>
+					<option value="germany">Germany</option>
+					<option value="italian">Italy</option>
+					<option value="france">France</option>
+				</select>
+			</aside>
+
+
+			<div class="cards__wrapper">
+			</div>
+		</div>
+
+	<script src="index.js"></script>
+</body>
+</html>
