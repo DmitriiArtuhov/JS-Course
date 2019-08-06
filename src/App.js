@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Header from './components/Header';
+import Menu from './components/Menu';
+import Content from './components/Content';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="container">
+        <Header/>
+        <Menu/>
+      </div>
+
+      <div className="background">
+        <div className="container">
+          <Content 
+          title="быстрая Доставка" 
+          parag="бетона, щебня, песка и других нерудных материалов по Москве и Московской области" 
+          btn="Подробнее о доставке" 
+          linkURL="#" 
+          linkText="перейти в каталог" />
+        </div>
+      </div>
     </div>
   );
 }
